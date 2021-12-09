@@ -53,9 +53,6 @@ Při hledání buď procházej pole kontaktů v cyklu a testuj podmínku,
 nebo pokud se na to cítíš, zkus použít medotu pole "filter"
 (viz. pdf prezentace z hodiny).
 
-→ tohle je prý stejný jako projekt 3, ale můžeme použít i např. fci filter a ty modernější zápisy, co jsme si ukazovali v lekci 9
-
-
 
 BONUS PRO ŠPRTKY:
 -----------------
@@ -86,7 +83,7 @@ ještě vyfiltrovat podle hledání práce.
 
 // vytvoří element pro jeden kontakt a vrátí ho z funkce ven
 // do funkce předáváme index kontaktu v poli
-function vytvorKontakt(i) {
+function vytvorKontakt(i, kontakty) {
 
 	let kontaktElement = document.createElement('div');
 	kontaktElement.classList.add('kontakt');
@@ -141,5 +138,21 @@ const vysledek = document.querySelector('#vysledek');
 
 
 for (let i = 0; i < kontakty.length; i++) {
-	vysledek.appendChild(vytvorKontakt(i));
+	vysledek.appendChild(vytvorKontakt(i, kontakty));
 }
+
+const zadejJmeno = document.querySelector("#jmeno")
+const buttonHledat = document.querySelector("#button-hledat")
+
+buttonHledat.addEventListener("click", () =>{
+	console.log(zadejJmeno.value)
+	vysledek.innerHTML=``;
+	let filtrovaneKontakty = kontakty.filter((kontakt) => {
+		return kontakt.jmeno.startsWith(jmeno.value)
+	})
+
+	for (let i=0; i < filtrovaneKontakty.length; i++) {
+		vysledek.appendChild(vytvorKontakt(i, filtrovaneKontakty))
+	}
+
+})
